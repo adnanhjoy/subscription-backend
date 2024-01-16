@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 
 // signup subscription user 
 subscriptionRouter.post('/user/signup', async (req, res) => {
-    const { name, email, password, phone, country, city, address } = req.body
+    const { name, email, password, phone, country, city, address, package } = req.body
     try {
         const isExist = await SubscriptionUser.findOne({ email: email });
         if (!isExist) {
@@ -20,6 +20,7 @@ subscriptionRouter.post('/user/signup', async (req, res) => {
                 country,
                 city,
                 address,
+                package,
                 password: hashPassword,
             });
             const result = await user.save();
@@ -30,7 +31,7 @@ subscriptionRouter.post('/user/signup', async (req, res) => {
                 })
             } else {
                 res.status(404).json({
-                    message: error.message
+                    message: 'User not found'
                 })
             }
         } else {
@@ -45,6 +46,30 @@ subscriptionRouter.post('/user/signup', async (req, res) => {
     }
 })
 
+
+
+// get subscription data 
+
+subscriptionRouter.get('/user', async (req, res) => {
+    try {
+        const result = await SubscriptionUser.find().populate('package');
+        if (result) {
+            res.status(200).json({
+                success: true,
+                data: result,
+            })
+        } else {
+            res.status(404).json({
+                message: 'User not found'
+            })
+        }
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+})
 
 
 // login subscription user

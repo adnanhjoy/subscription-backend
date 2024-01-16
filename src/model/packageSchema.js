@@ -21,7 +21,6 @@ const packageSchema = new mongoose.Schema({
     },
     offerPrice: {
         type: Number,
-        required: true
     }
 }, { timestamps: true });
 

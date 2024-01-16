@@ -25,6 +25,10 @@ const subscriptionUserSchema = new mongoose.Schema({
     },
     address: {
         type: String,
+    },
+    package: {
+        type: mongoose.Types.ObjectId,
+        ref: 'packages'
     }
 }, { timestamps: true })
 
