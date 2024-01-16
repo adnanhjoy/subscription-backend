@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 
 // signup subscription user 
 subscriptionRouter.post('/user/signup', async (req, res) => {
-    const { name, email, password, phone, country, city, address, package } = req.body
+    const { name, email, password, phone, country, city, address, packages } = req.body
     try {
         const isExist = await SubscriptionUser.findOne({ email: email });
         if (!isExist) {
@@ -20,7 +20,7 @@ subscriptionRouter.post('/user/signup', async (req, res) => {
                 country,
                 city,
                 address,
-                package,
+                packages,
                 password: hashPassword,
             });
             const result = await user.save();
@@ -52,7 +52,7 @@ subscriptionRouter.post('/user/signup', async (req, res) => {
 
 subscriptionRouter.get('/user', async (req, res) => {
     try {
-        const result = await SubscriptionUser.find().populate('package');
+        const result = await SubscriptionUser.find().populate('packages');
         if (result) {
             res.status(200).json({
                 success: true,

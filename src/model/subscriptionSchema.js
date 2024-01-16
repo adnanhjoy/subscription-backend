@@ -26,7 +26,7 @@ const subscriptionUserSchema = new mongoose.Schema({
     address: {
         type: String,
     },
-    package: {
+    packages: {
         type: mongoose.Types.ObjectId,
         ref: 'packages'
     }
