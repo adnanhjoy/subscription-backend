@@ -45,8 +45,32 @@ packageRouter.get('/', async (req, res) => {
             message: error.message
         })
     }
-})
+});
 
+
+
+
+// get single package 
+packageRouter.get('/:id', async (req, res) => {
+    const packageId = req.params.id;
+    try {
+        const result = await Package.find({ _id: packageId });
+        if (result) {
+            res.status(200).json({
+                success: true,
+                data: result,
+            })
+        } else {
+            res.status(404).json({
+                message: 'package not found'
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+});
 
 
 module.exports = packageRouter;
