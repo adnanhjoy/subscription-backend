@@ -3,7 +3,8 @@ const { default: mongoose } = require('mongoose');
 require('dotenv').config();
 const { subscriptionRouter } = require('./src/controller/subscriptionController');
 const app = express();
-const cors = require('cors')
+const cors = require('cors');
+const packageRouter = require('./src/controller/packageController');
 const port = process.env.PORT || 8000;
 
 app.use(express.json());
@@ -12,6 +13,7 @@ app.use(cors())
 
 // router 
 app.use('/subscription', subscriptionRouter);
+app.use('/packages', packageRouter);
 
 
 const connectDb = async () => {
